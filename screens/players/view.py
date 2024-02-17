@@ -11,8 +11,9 @@ class PlayerView(BaseScreen):
         self.player = player
 
     def display(self):
-        print("##", self.club.name)
-        print("###", self.player.name)
+        print("--------------------------------------------------------------------------")
+        print("-- ", self.club.name, " --")
+        print("Player Name:", self.player.name)
         print("Email:", self.player.email)
         print("Chess ID:", self.player.chess_id)
         print("Birthdate:", self.player.birthday)

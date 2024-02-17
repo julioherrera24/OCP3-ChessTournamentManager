@@ -3,6 +3,7 @@ from pathlib import Path
 
 from .tournament import Tournament
 
+
 class TournamentManager:
     """This class handles the proper creation of Tournament files and adds them to the data folder"""
     def __init__(self, data_folder="data/tournaments"):
@@ -17,7 +18,7 @@ class TournamentManager:
                     print(filepath, "is an invalid JSON file.")
 
     def create(self, name):
-        filepath = self.data_folder / (name.replace(" ","") + ".json")
+        filepath = self.data_folder / (name.replace(" ", "") + ".json")
         tournament = Tournament(name=name, filepath=filepath)
         tournament.save()
 
