@@ -56,6 +56,7 @@ class Tournament:
 
     def save(self, filename=None):
         """This function serializes the Tournament information to the JSON file"""
+        # if not directory of data/tournaments exists then we make one
         if not os.path.exists("data/tournaments"):
             os.makedirs("data/tournaments")
         if filename is None:

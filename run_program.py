@@ -2,6 +2,9 @@ import json
 import os
 from models.tournament import Tournament
 from manage_clubs import App
+from commands.tournament_utils import get_active_tournaments, display_active_tournaments
+
+DATA_TOURNAMENTS_FOLDER = "data/tournaments"
 
 while True:
     print("--------------------------------------------------------------------------")
@@ -9,7 +12,7 @@ while True:
     print("--------------------------------------------------------------------------")
     print("                         - MAIN MENU -\n")
     print("1: View all Clubs and Club Members / Create New Club and Club Members")
-    print("2: Create New Tournament and Register Players")
+    print("2: Create New Tournament")
     print("3: View/Manage all active tournaments")
     print("4: View all completed tournaments")
     print("\n5: Exit application")
@@ -20,8 +23,14 @@ while True:
     if user_choice.isdigit() and user_choice == "1":
         app = App()
         app.run()
+
     elif user_choice.isdigit() and user_choice == "2":
         Tournament.create_tournament()
+
+    elif user_choice.isdigit() and user_choice == "3":
+        active_tournaments = get_active_tournaments(DATA_TOURNAMENTS_FOLDER)
+        display_active_tournaments(active_tournaments)
+
     elif user_choice.isdigit() and user_choice == "5":
         print("You are now exiting the Chess Tournament Manager program...")
         break
