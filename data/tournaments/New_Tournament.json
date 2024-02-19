@@ -1,0 +1,14 @@
+{
+    "name": "New Tournament",
+    "dates": {
+        "from": "05-05-2020",
+        "to": "06-05-2020"
+    },
+    "venue": "Polannd",
+    "number_of_rounds": 3,
+    "current_round": 1,
+    "completed": false,
+    "players": [],
+    "finished": false,
+    "rounds": []
+}

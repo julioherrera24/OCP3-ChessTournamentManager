@@ -1,11 +1,11 @@
 {
-    "name": "okok",
+    "name": "Test4",
     "dates": {
-        "from": "okoko",
-        "to": "ookok"
+        "from": "05-06-2020",
+        "to": "06-06-2020"
     },
-    "venue": "okoko",
-    "number_of_rounds": 2,
+    "venue": "Riverside",
+    "number_of_rounds": 4,
     "current_round": 1,
     "completed": false,
     "players": [],

@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 
 
 class Tournament:
@@ -40,11 +41,38 @@ class Tournament:
         print("----------------------------------------------------------------")
         print("        -- CREATING A NEW TOURNAMENT --")
         name = input("Enter the tournament name: ")
-        start_date = input("Enter the tournament start date (DD-MM-YYYY): ")
-        end_date = input("Enter the tournament end date (DD-MM-YYYY): ")
+
+        # Validate user gives us the correct start date format
+        while True:
+            start_date_input = input("Enter the tournament start date (DD-MM-YYYY): ")
+            try:
+                start_date_date = datetime.strptime(start_date_input, "%d-%m-%Y").date()
+                start_date = start_date_date.strftime("%d-%m-%Y")
+                break  # breaks loop if the input is correctly formatted
+            except ValueError:
+                print("Invalid date format. Enter data as DD-MM-YYYY.")
+
+        # validate user gives us the correct end date format
+        while True:
+            end_date_input = input("Enter the tournament end date (DD-MM-YYYY): ")
+            try:
+                end_date_date = datetime.strptime(end_date_input, "%d-%m-%Y").date()
+                end_date = end_date_date.strftime("%d-%m-%Y")
+                break   # breaks loop if correct format
+            except ValueError:
+                print("Invalid date format. Enter date as DD-MM-YYYY")
+
         venue = input("Enter the tournament's venue: ")
-        number_of_rounds_input = input("Enter the number of rounds: ")
-        number_of_rounds = int(number_of_rounds_input)
+
+        # Validate and get the number of rounds
+        while True:
+            number_of_rounds_input = input("Enter the number of rounds: ")
+            if number_of_rounds_input.isdigit():
+                number_of_rounds = int(number_of_rounds_input)
+                break  # Break the loop if the input is a valid integer
+            else:
+                print("Invalid input. Please enter a valid number.")
+
         current_round = 1
         is_complete = False
         registered_players = []
@@ -85,7 +113,7 @@ class Tournament:
                     "rounds": self.rounds
                 }, fp, indent=4)
 
-            print(f"\nTournament data has been saved to {filename}")
+            print(f"\nTournament data has been saved to {filename}.")
 
     @classmethod
     def load_tournament(cls, filename):
