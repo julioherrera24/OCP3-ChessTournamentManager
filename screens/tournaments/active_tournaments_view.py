@@ -25,3 +25,7 @@ class ActiveTournamentView():
 
             for i, (file_name, start_date) in enumerate(active_tournaments_dates, start=1):
                 print(f"{i}. {file_name} - Start Date: {start_date.strftime('%d-%m-%Y')}")
+
+            return active_tournaments_dates
+        else:
+            print("There are no active tournaments.")

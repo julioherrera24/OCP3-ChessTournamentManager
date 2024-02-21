@@ -6,7 +6,7 @@ from datetime import datetime
 class Tournament:
     """This class contains information of a tournament, creates Tournament instances, loads and saves"""
     def __init__(self, name=None, start_date=None, end_date=None, venue=None, number_of_rounds=None,
-                 current_round=None, is_complete=False, registered_players=None,
+                 current_round=None, is_completed=False, registered_players=None,
                  is_finished=None, rounds=None):
 
         self.name = name
@@ -15,7 +15,7 @@ class Tournament:
         self.venue = venue
         self.number_of_rounds = number_of_rounds
         self.current_round = current_round
-        self.is_completed = is_complete
+        self.is_completed = is_completed
         self.registered_players = registered_players
         self.is_finished = is_finished
         self.rounds = rounds
@@ -74,11 +74,11 @@ class Tournament:
                 print("Invalid input. Please enter a valid number.")
 
         current_round = 1
-        is_complete = False
+        is_completed = False
         registered_players = []
         is_finished = False
         rounds = []
-        tournament = cls(name, start_date, end_date, venue, number_of_rounds, current_round, is_complete,
+        tournament = cls(name, start_date, end_date, venue, number_of_rounds, current_round, is_completed,
                          registered_players, is_finished, rounds)
         tournament.save()
 
@@ -117,6 +117,7 @@ class Tournament:
 
     @classmethod
     def load_tournament(cls, filename):
+        # print(f"Loading tournament from file: {filename}")
         if not os.path.exists(filename):
             print("No tournament was found.")
             return None
@@ -132,7 +133,7 @@ class Tournament:
                 venue=data["venue"],
                 number_of_rounds=data["number_of_rounds"],
                 current_round=data["current_round"],
-                is_complete=data["completed"],
+                is_completed=data["completed"],
                 registered_players=data["players"],
                 is_finished=data.get("finished", "false"),
                 rounds=data["rounds"],
