@@ -141,3 +141,11 @@ class Tournament:
         except KeyError:
             print("ERROR: missing key in tournament data")
             return None
+
+    def add_players(self, players):
+        """Add players to the tournament."""
+        if not self.is_finished:
+            self.registered_players.extend(players)
+            print(f"Players added to the tournament: {[player['name'] for player in players]}")
+        else:
+            print("Cannot add players to a finished tournament.")

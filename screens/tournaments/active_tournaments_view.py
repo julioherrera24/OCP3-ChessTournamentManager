@@ -29,3 +29,11 @@ class ActiveTournamentView():
             return active_tournaments_dates
         else:
             print("There are no active tournaments.")
+
+    @staticmethod
+    def display_all_players(players):
+        print("\n--------------------------------------------------------------------------")
+        print("                      -- ALL PLAYERS --\n")
+        for i, player in enumerate(players, start=1):
+            print(f"{i}. {player}")
+

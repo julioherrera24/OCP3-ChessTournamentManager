@@ -6,6 +6,7 @@ from models.tournament import Tournament
 from screens.tournaments.active_tournaments_view import ActiveTournamentView
 
 DATA_TOURNAMENTS_FOLDER = "data/tournaments"
+DATA_CLUBS_FOLDER = "data/clubs"
 
 
 class ActiveTournamentController:
@@ -92,12 +93,12 @@ class ActiveTournamentController:
             print("2. Enter results of the match for the current round")
             print("3. Advance to the next round")
             print("4. Generate a tournament report")
-            print("\n5. Return to the Active Tournaments List Menu")
+            print("5. Return to the Active Tournaments List Menu")
 
-            inner_choice = input("Enter your choice: ")
+            inner_choice = input("\nEnter your choice: ")
 
             if inner_choice == "1":
-                pass
+                ActiveTournamentController.register_players(tournament)
             elif inner_choice == "2":
                 pass
             elif inner_choice == "3":
@@ -108,3 +109,82 @@ class ActiveTournamentController:
                 break  # Break the loop and go back to the main menu
             else:
                 print("Invalid choice. Please enter a valid number option.")
+
+    @staticmethod
+    def register_players(tournament):
+        """this function retrieves all the players in every club in order to register them for a tournament"""
+        list_of_players = []
+        club_files = []
+
+        for file in os.listdir(DATA_CLUBS_FOLDER):
+            if file.endswith(".json"):
+                club_files.append(os.path.join(DATA_CLUBS_FOLDER, file))
+
+        for file in club_files:
+            with open(file) as filepath:
+                data = json.load(filepath)
+                players = data.get("players", [])
+                list_of_players.extend(players)
+
+        ActiveTournamentView.display_all_players(list_of_players)
+
+        def search_by_name(player_name):
+            matching_player_names = []
+            for p in list_of_players:
+                if player_name.lower() in p.get("name").lower():
+                    matching_player_names.append(p)
+            return matching_player_names
+
+        def search_by_id(player_id):
+            for p in list_of_players:
+                if p.get("chess_id") == player_id:
+                    return p
+            return None
+
+        selected_tournament_players = []
+        while True:
+            print("\nType the number associated with the player you would like to add to the tournament or ")
+            print("Type 'ID' to search for a player by Chess ID or ")
+            print("Type 'Name' to search for a player by Name or ")
+            print("Type 'X' to return to Tournament options")
+
+            option = input("\nYour choice is: ")
+
+            if option.isdigit() and 1 <= int(option) <= len(list_of_players):
+                selected_tournament_players.append(list_of_players[int(option) - 1])
+                print(f"Added {list_of_players[int(option) - 1].get('name')} to the tournament.")
+
+            elif option.lower() == 'id':
+                chess_id = input("Enter Chess ID: ").strip()
+                player = search_by_id(chess_id)
+                if player:
+                    selected_tournament_players.append(player)
+                    print(f"Added {player.get('name')} to the tournament.")
+                else:
+                    print("No players match that Chess ID.")
+
+            elif option.lower() == 'name':
+                name = input("Enter the name of the player: ")
+                matching_names = search_by_name(name)
+                if matching_names:
+                    # case where multiple players match the name
+                    print("Players found:")
+                    for i, player in enumerate(matching_names, 1):
+                        print(f"{i}. {player.get('name')}")
+                    selection = input("Select the player number to add: ")
+                    if selection.isdigit() and 1 <= int(selection) <= len(matching_names):
+                        selected_tournament_players.append(matching_names[int(selection) - 1])
+                        print(f"Player {matching_names[int(selection) - 1].get('name')} added to the tournament.")
+                    else:
+                        print("Invalid selection.")
+                else:
+                    print("No players match that name.")
+
+            elif option.lower() == 'x':
+                break
+
+            else:
+                print("Select the correct number or the correct 'keyword' to add players.")
+
+        tournament.add_players(selected_tournament_players)
+        tournament.save()
