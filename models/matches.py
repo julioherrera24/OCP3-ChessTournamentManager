@@ -38,41 +38,41 @@ class Matches:
 
         for match in matches:
             # Extract player names and chess IDs
-            player1_name = match[0]["name"]
-            player1_chess_id = match[0]["chess_id"]
-
-            player2_name = match[1]["name"]
-            player2_chess_id = match[1]["chess_id"]
+            player1 = match[0]["chess_id"]
+            player2 = match[1]["chess_id"]
 
             # Create a dictionary for each pair with relevant information
             round_data = {
-                "player1_name": player1_name,
-                "player1_chess_id": player1_chess_id,
-                "player2_name": player2_name,
-                "player2_chess_id": player2_chess_id,
+                "players": [
+                    player1,
+                    player2
+                ],
                 "completed": False,
                 "winner": None
             }
             round_data_list.append(round_data)
 
-            # Append the individual round dictionaries to the rounds list
+        # Append the individual round dictionaries to the rounds list
         self.tournament.rounds.extend(round_data_list)
 
-        print(f"Round Data: {round_data_list}")
-        print(f"Updated Tournament Rounds: {self.tournament.rounds}")
+        # print(f"Round Data: {round_data_list}")
+        # print(f"Updated Tournament Rounds: {self.tournament.rounds}")
 
-        self.tournament.save()
+        # self.tournament.save()
         return matches
 
     @staticmethod
     def pair_randomly(players):
         """We create random pairings for the first round from the list of registered players"""
-        players = players
         random.shuffle(players)
         matches = []
         for i in range(0, len(players), 2):
             if i + 1 < len(players):
-                matches.append((players[i], players[i + 1]))
+                matches.append({
+                    "players": [players[i]["chess_id"], players[i + 1]["chess_id"]],
+                    "completed": False,
+                    "winner": None
+                })
         return matches
 
     def pair_based_on_points(self):
@@ -83,7 +83,11 @@ class Matches:
         while len(sort_players) >= 2:
             player1 = sort_players.pop(0)
             player2 = sort_players.pop(0)
-            matches.append((player1, player2))
+            matches.append({
+                "players": [player1, player2],
+                "completed": False,
+                "winner": None
+            })
         return matches
 
     def calculate_points(self):
@@ -94,12 +98,13 @@ class Matches:
             if winner is None:
                 players = round_data.get("players")
                 if players:
-                    for player in players:
-                        self.points[player] += 0.5
+                    for player_id in players:
+                        self.points[player_id] += 0.5
             else:
-                self.points[winner] += 1
+                for player_id in round_data["players"]:
+                    # Check if the player is player1 or player2 in the match
+                    if player_id == winner:
+                        self.points[player_id] += 1
+                    else:
+                        self.points[player_id] += 0
 
-    def get_matches(self):
-        """Return the matches."""
-        return {"players": self.players, "winner": self.winner, "is_completed": self.is_completed,
-                "points": self.points, }

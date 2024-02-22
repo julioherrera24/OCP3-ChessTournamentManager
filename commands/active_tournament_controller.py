@@ -192,14 +192,15 @@ class ActiveTournamentController:
 
     @staticmethod
     def enter_results(tournament):
-        print("Entering enter_results method.")
+        print("--------------------------------------------------------------------------")
+        print("                  -- ENTERING THE RESULTS --")
 
         print("Current tournament rounds:")
         print(tournament.rounds)
 
         for round_data in tournament.rounds:
             print(f"Processing round: {round_data}")
-            for match in round_data:
+            for match in round_data["players"]:
                 print(f"Processing match: {match}")
                 print(f"Match status: completed={match['completed']}, winner={match['winner']}")
 

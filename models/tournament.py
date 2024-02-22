@@ -168,4 +168,3 @@ class Tournament:
         print("Generated match pairs: ")
         for pair in pairs:
             print(f"{pair[0]['name']} vs. {pair[1]['name']}")
-

@@ -1,0 +1,76 @@
+{
+    "name": "Testing 5",
+    "dates": {
+        "from": "05-07-2024",
+        "to": "06-07-2024"
+    },
+    "venue": "El Camino",
+    "number_of_rounds": 3,
+    "current_round": 1,
+    "completed": false,
+    "players": [
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        },
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "Ryan Warren",
+            "email": "wcastillo@example.com",
+            "chess_id": "QJ67186",
+            "birthday": "29-08-1998"
+        },
+        {
+            "name": "Billy Anderson",
+            "email": "marywilson@example.net",
+            "chess_id": "DP10300",
+            "birthday": "25-08-1970"
+        }
+    ],
+    "finished": false,
+    "rounds": [
+        {
+            "player1_name": "Ryan Warren",
+            "player1_chess_id": "QJ67186",
+            "player2_name": "Melissa Ford",
+            "player2_chess_id": "UY63209",
+            "completed": false,
+            "winner": null
+        },
+        {
+            "player1_name": "Juoker",
+            "player1_chess_id": "CC33343",
+            "player2_name": "Billy Anderson",
+            "player2_chess_id": "DP10300",
+            "completed": false,
+            "winner": null
+        },
+        {
+            "player1_name": "Dr. Katelyn Velez",
+            "player1_chess_id": "YQ88272",
+            "player2_name": "Henry Grant",
+            "player2_chess_id": "CF24301",
+            "completed": false,
+            "winner": null
+        }
+    ]
+}

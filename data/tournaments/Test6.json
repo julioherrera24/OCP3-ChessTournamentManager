@@ -1,0 +1,76 @@
+{
+    "name": "Test6",
+    "dates": {
+        "from": "07-07-2023",
+        "to": "07-07-2023"
+    },
+    "venue": "EL co",
+    "number_of_rounds": 3,
+    "current_round": 1,
+    "completed": false,
+    "players": [
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "Ryan Warren",
+            "email": "wcastillo@example.com",
+            "chess_id": "QJ67186",
+            "birthday": "29-08-1998"
+        },
+        {
+            "name": "Billy Anderson",
+            "email": "marywilson@example.net",
+            "chess_id": "DP10300",
+            "birthday": "25-08-1970"
+        },
+        {
+            "name": "Dustin Byrd",
+            "email": "michellehorn@example.org",
+            "chess_id": "HG65375",
+            "birthday": "20-12-1980"
+        }
+    ],
+    "finished": false,
+    "rounds": [
+        {
+            "player1_name": "Billy Anderson",
+            "player1_chess_id": "DP10300",
+            "player2_name": "Dr. Katelyn Velez",
+            "player2_chess_id": "YQ88272",
+            "completed": false,
+            "winner": null
+        },
+        {
+            "player1_name": "Henry Grant",
+            "player1_chess_id": "CF24301",
+            "player2_name": "Ryan Warren",
+            "player2_chess_id": "QJ67186",
+            "completed": false,
+            "winner": null
+        },
+        {
+            "player1_name": "Dustin Byrd",
+            "player1_chess_id": "HG65375",
+            "player2_name": "Melissa Ford",
+            "player2_chess_id": "UY63209",
+            "completed": false,
+            "winner": null
+        }
+    ]
+}
