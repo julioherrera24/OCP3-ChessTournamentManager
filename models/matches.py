@@ -20,27 +20,54 @@ class Matches:
         self.players = players
         self.winner = winner
         self.is_completed = is_completed
-        self.points = points
+        self.points = points if points is not None else {}
         self.tournament = tournament
 
-    def create_pairing(self):
+    def create_pairing(self, players):
         """This function is responsible for creating the matchings for the matches
         For the first round we match randomly if there are an even amount of players
         For the following rounds, we calculate the points and create the matchings based on points"""
         if self.tournament.current_round == 1:
-            return self.pair_randomly()
+            matches = Matches.pair_randomly(players)
         else:
             self.calculate_points()
-            return self.pair_based_on_points()
+            matches = self.pair_based_on_points()
 
-    def pair_randomly(self):
+        # creates a list to store individual round dictionaries
+        round_data_list = []
+
+        for match in matches:
+            # Extract player names and chess IDs
+            player1_name = match[0]["name"]
+            player1_chess_id = match[0]["chess_id"]
+
+            player2_name = match[1]["name"]
+            player2_chess_id = match[1]["chess_id"]
+
+            # Create a dictionary for each pair with relevant information
+            round_data = {
+                "player1_name": player1_name,
+                "player1_chess_id": player1_chess_id,
+                "player2_name": player2_name,
+                "player2_chess_id": player2_chess_id,
+                "completed": False,
+                "winner": None
+            }
+            round_data_list.append(round_data)
+
+            # Append the individual round dictionaries to the rounds list
+        self.tournament.rounds.extend(round_data_list)
+
+        print(f"Round Data: {round_data_list}")
+        print(f"Updated Tournament Rounds: {self.tournament.rounds}")
+
+        self.tournament.save()
+        return matches
+
+    @staticmethod
+    def pair_randomly(players):
         """We create random pairings for the first round from the list of registered players"""
-        players = self.tournament.registered_players[:]
-        if len(players) % 2 != 0:
-            print("Failed to make pairings. Cannot pair odd number of players.")
-            print("Add another player to the tournament.")
-            return
-
+        players = players
         random.shuffle(players)
         matches = []
         for i in range(0, len(players), 2):
@@ -71,3 +98,8 @@ class Matches:
                         self.points[player] += 0.5
             else:
                 self.points[winner] += 1
+
+    def get_matches(self):
+        """Return the matches."""
+        return {"players": self.players, "winner": self.winner, "is_completed": self.is_completed,
+                "points": self.points, }

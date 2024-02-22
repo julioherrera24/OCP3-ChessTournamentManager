@@ -1,6 +1,9 @@
 import json
 import os
+
 from datetime import datetime
+
+from models.matches import Matches
 
 
 class Tournament:
@@ -149,3 +152,20 @@ class Tournament:
             print(f"Players added to the tournament: {[player['name'] for player in players]}")
         else:
             print("Cannot add players to a finished tournament.")
+
+    def create_pairs(self, registered_players):
+        """Create pairs for matches based on the tournament logic."""
+        # Ensure the tournament has the correct number of players
+        if len(registered_players) % 2 != 0:
+            print("Failed to make pairings. Cannot pair an odd number of players.")
+            print("Add another player to the tournament.")
+            return
+
+        matches = Matches(self)
+
+        pairs = matches.create_pairing(registered_players)
+
+        print("Generated match pairs: ")
+        for pair in pairs:
+            print(f"{pair[0]['name']} vs. {pair[1]['name']}")
+

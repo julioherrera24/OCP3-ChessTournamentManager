@@ -100,7 +100,7 @@ class ActiveTournamentController:
             if inner_choice == "1":
                 ActiveTournamentController.register_players(tournament)
             elif inner_choice == "2":
-                pass
+                ActiveTournamentController.enter_results(tournament)
             elif inner_choice == "3":
                 pass
             elif inner_choice == "4":
@@ -187,4 +187,37 @@ class ActiveTournamentController:
                 print("Select the correct number or the correct 'keyword' to add players.")
 
         tournament.add_players(selected_tournament_players)
+        tournament.create_pairs(selected_tournament_players)
         tournament.save()
+
+    @staticmethod
+    def enter_results(tournament):
+        print("Entering enter_results method.")
+
+        print("Current tournament rounds:")
+        print(tournament.rounds)
+
+        for round_data in tournament.rounds:
+            print(f"Processing round: {round_data}")
+            for match in round_data:
+                print(f"Processing match: {match}")
+                print(f"Match status: completed={match['completed']}, winner={match['winner']}")
+
+                print(f"Match: {match['players'][0]} vs {match['players'][1]}")
+
+                if not match["completed"]:
+                    while True:
+                        winner = input("Enter the ID of the player who won the match (or 'draw' for a draw): ")
+                        if winner.lower() == 'draw':
+                            match['winner'] = None  # Mark the match as a draw
+                            match['completed'] = True
+                            break
+                        elif winner.isalnum() and winner in match["players"]:
+                            match['winner'] = winner
+                            match['completed'] = True
+                            break
+                        else:
+                            print("Invalid input. Please enter a valid player ID.")
+
+        tournament.save()
+        print("Exiting enter_results method.")
