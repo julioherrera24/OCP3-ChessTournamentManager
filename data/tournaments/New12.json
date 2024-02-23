@@ -1,11 +1,11 @@
 {
-    "name": "test 11",
+    "name": "New12",
     "dates": {
-        "from": "08-09-2034",
-        "to": "08-09-2034"
+        "from": "08-08-2008",
+        "to": "08-08-2008"
     },
     "venue": "LA",
-    "number_of_rounds": 2,
+    "number_of_rounds": 3,
     "current_round": 2,
     "completed": false,
     "players": [
@@ -32,25 +32,45 @@
             "email": "christinesanchez@example.com",
             "chess_id": "UY63209",
             "birthday": "06-08-1945"
+        },
+        {
+            "name": "Ryan Warren",
+            "email": "wcastillo@example.com",
+            "chess_id": "QJ67186",
+            "birthday": "29-08-1998"
+        },
+        {
+            "name": "Billy Anderson",
+            "email": "marywilson@example.net",
+            "chess_id": "DP10300",
+            "birthday": "25-08-1970"
         }
     ],
     "finished": false,
     "rounds": [
         {
             "players": [
-                "YQ88272",
-                "CC33343"
-            ],
-            "completed": true,
-            "winner": "YQ88272"
-        },
-        {
-            "players": [
-                "UY63209",
-                "CF24301"
+                "DP10300",
+                "QJ67186"
             ],
             "completed": true,
             "winner": null
+        },
+        {
+            "players": [
+                "CC33343",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": "CC33343"
+        },
+        {
+            "players": [
+                "YQ88272",
+                "UY63209"
+            ],
+            "completed": true,
+            "winner": "UY63209"
         }
     ]
 }

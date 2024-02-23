@@ -1,0 +1,124 @@
+{
+    "name": "test14",
+    "dates": {
+        "from": "09-09-2025",
+        "to": "09-09-2025"
+    },
+    "venue": "LA",
+    "number_of_rounds": 3,
+    "current_round": 3,
+    "completed": true,
+    "players": [
+        {
+            "name": "Grace Cobb",
+            "email": "gellis@example.org",
+            "chess_id": "HY04207",
+            "birthday": "24-07-1998"
+        },
+        {
+            "name": "Michelle Ramos",
+            "email": "marcgross@example.org",
+            "chess_id": "PV16440",
+            "birthday": "27-04-1950"
+        },
+        {
+            "name": "Jason Sanford",
+            "email": "edwardwatkins@example.org",
+            "chess_id": "NX13191",
+            "birthday": "06-11-1959"
+        },
+        {
+            "name": "Billy Anderson",
+            "email": "marywilson@example.net",
+            "chess_id": "DP10300",
+            "birthday": "25-08-1970"
+        },
+        {
+            "name": "Tracy Hendricks",
+            "email": "nwalter@example.net",
+            "chess_id": "LM54156",
+            "birthday": "24-07-1939"
+        },
+        {
+            "name": "Dustin Byrd",
+            "email": "michellehorn@example.org",
+            "chess_id": "HG65375",
+            "birthday": "20-12-1980"
+        }
+    ],
+    "finished": true,
+    "rounds": [
+        {
+            "players": [
+                "HY04207",
+                "PV16440"
+            ],
+            "completed": true,
+            "winner": "HY04207"
+        },
+        {
+            "players": [
+                "NX13191",
+                "DP10300"
+            ],
+            "completed": true,
+            "winner": "NX13191"
+        },
+        {
+            "players": [
+                "LM54156",
+                "HG65375"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "NX13191",
+                "HY04207"
+            ],
+            "completed": true,
+            "winner": "HY04207"
+        },
+        {
+            "players": [
+                "HG65375",
+                "LM54156"
+            ],
+            "completed": true,
+            "winner": "LM54156"
+        },
+        {
+            "players": [
+                "DP10300",
+                "PV16440"
+            ],
+            "completed": true,
+            "winner": "DP10300"
+        },
+        {
+            "players": [
+                "HY04207",
+                "LM54156"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "DP10300",
+                "NX13191"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "HG65375",
+                "PV16440"
+            ],
+            "completed": true,
+            "winner": null
+        }
+    ]
+}

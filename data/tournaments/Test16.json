@@ -1,0 +1,148 @@
+{
+    "name": "Test16",
+    "dates": {
+        "from": "09-09-2034",
+        "to": "09-09-2034"
+    },
+    "venue": "LA",
+    "number_of_rounds": 3,
+    "current_round": 4,
+    "completed": true,
+    "players": [
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        },
+        {
+            "name": "Ryan Warren",
+            "email": "wcastillo@example.com",
+            "chess_id": "QJ67186",
+            "birthday": "29-08-1998"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "Michelle Ramos",
+            "email": "marcgross@example.org",
+            "chess_id": "PV16440",
+            "birthday": "27-04-1950"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        }
+    ],
+    "finished": true,
+    "rounds": [
+        {
+            "players": [
+                "CC33343",
+                "QJ67186"
+            ],
+            "completed": true,
+            "winner": "CC33343"
+        },
+        {
+            "players": [
+                "UY63209",
+                "PV16440"
+            ],
+            "completed": true,
+            "winner": "PV16440"
+        },
+        {
+            "players": [
+                "YQ88272",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": "CF24301"
+        },
+        {
+            "players": [
+                "CC33343",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": "CF24301"
+        },
+        {
+            "players": [
+                "PV16440",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "UY63209",
+                "QJ67186"
+            ],
+            "completed": true,
+            "winner": "UY63209"
+        },
+        {
+            "players": [
+                "CF24301",
+                "PV16440"
+            ],
+            "completed": true,
+            "winner": "PV16440"
+        },
+        {
+            "players": [
+                "CC33343",
+                "UY63209"
+            ],
+            "completed": true,
+            "winner": "CC33343"
+        },
+        {
+            "players": [
+                "YQ88272",
+                "QJ67186"
+            ],
+            "completed": true,
+            "winner": "QJ67186"
+        },
+        {
+            "players": [
+                "PV16440",
+                "CC33343"
+            ],
+            "completed": false,
+            "winner": null
+        },
+        {
+            "players": [
+                "CF24301",
+                "UY63209"
+            ],
+            "completed": false,
+            "winner": null
+        },
+        {
+            "players": [
+                "QJ67186",
+                "YQ88272"
+            ],
+            "completed": false,
+            "winner": null
+        }
+    ]
+}

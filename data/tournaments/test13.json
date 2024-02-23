@@ -1,14 +1,20 @@
 {
-    "name": "test 11",
+    "name": "test13",
     "dates": {
-        "from": "08-09-2034",
-        "to": "08-09-2034"
+        "from": "08-08-2003",
+        "to": "08-08-2003"
     },
-    "venue": "LA",
-    "number_of_rounds": 2,
+    "venue": "la",
+    "number_of_rounds": 3,
     "current_round": 2,
     "completed": false,
     "players": [
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
         {
             "name": "Juoker",
             "email": "ok@yahooo.com",
@@ -20,12 +26,6 @@
             "email": "mcknightjimmy@example.com",
             "chess_id": "CF24301",
             "birthday": "28-04-1936"
-        },
-        {
-            "name": "Dr. Katelyn Velez",
-            "email": "hunterlopez@example.com",
-            "chess_id": "YQ88272",
-            "birthday": "03-07-2008"
         },
         {
             "name": "Melissa Ford",
@@ -46,11 +46,11 @@
         },
         {
             "players": [
-                "UY63209",
-                "CF24301"
+                "CF24301",
+                "UY63209"
             ],
             "completed": true,
-            "winner": null
+            "winner": "CF24301"
         }
     ]
 }

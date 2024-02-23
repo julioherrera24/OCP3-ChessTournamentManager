@@ -160,12 +160,6 @@ class Tournament:
 
     def create_pairs(self, registered_players):
         """Create pairs for matches based on the tournament logic."""
-        # Ensure the tournament has the correct number of players
-        if len(registered_players) % 2 != 0:
-            print("Failed to make pairings. Cannot pair an odd number of players.")
-            print("Add another player to the tournament.")
-            return
-
         matches = Matches(self)
 
         pairs = matches.create_pairing(registered_players)
@@ -179,4 +173,7 @@ class Tournament:
     def update_points(self, players, points):
         """Update points for the specified players."""
         for player in players:
-            self.points[player] += points
+            # Use get method to safely retrieve the value associated with the player's key
+            current_points = self.points.get(player, 0.0)
+            # Update points for the player
+            self.points[player] = current_points + points

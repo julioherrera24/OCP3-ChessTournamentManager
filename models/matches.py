@@ -30,8 +30,7 @@ class Matches:
         if self.tournament.current_round == 1:
             matches = Matches.pair_randomly(players)
         else:
-            self.calculate_points()
-            matches = self.pair_based_on_points()
+            matches = Matches.pair_based_on_points(self.tournament)
 
         # creates a list to store individual round dictionaries
         round_data_list = []
@@ -62,23 +61,55 @@ class Matches:
         return matches
 
     @staticmethod
-    def pair_randomly(players):
+    def pair_randomly(tournament):
         """We create random pairings for the first round from the list of registered players"""
-        random.shuffle(players)
-        matches = []
-        for i in range(0, len(players), 2):
-            if i + 1 < len(players):
-                matches.append({
-                    "players": [players[i]["chess_id"], players[i + 1]["chess_id"]],
+        if tournament.current_round == 1:
+            players = tournament.registered_players
+            random.shuffle(players)
+
+            matches = []
+            for i in range(0, len(players), 2):
+                if i + 1 < len(players):
+                    matches.append({
+                        "players": [players[i]["chess_id"], players[i + 1]["chess_id"]],
+                        "completed": False,
+                        "winner": None
+                    })
+
+            round_data_list = []
+
+            for match in matches:
+                # Extract player chess IDs
+                player1 = match["players"][0]
+                player2 = match["players"][1]
+
+                # Create a dictionary for each pair with relevant information
+                round_data = {
+                    "players": [player1, player2],
                     "completed": False,
                     "winner": None
-                })
-        return matches
+                }
+                round_data_list.append(round_data)
 
-    def pair_based_on_points(self):
+            # Append the individual round dictionaries to the rounds list
+            tournament.rounds.extend(round_data_list)
+
+            # print(f"Round Data: {round_data_list}")
+            # print(f"Updated Tournament Rounds: {self.tournament.rounds}")
+
+            # self.tournament.save()
+            return matches
+
+    @staticmethod
+    def pair_based_on_points(tournament):
         """We will create the following match pairings based on points. We first sort the players based on points
         and then create pairings from the top to bottom"""
-        sort_players = sorted(self.points.keys(), key=lambda player: self.points[player], reverse=True)
+        print("Current Tournament Points:", tournament.points)
+
+        sort_players = sorted(tournament.points.keys(), key=lambda player: tournament.points[player], reverse=True)
+
+        print("Sorted Players:", sort_players)
+
         matches = []
         while len(sort_players) >= 2:
             player1 = sort_players.pop(0)
@@ -88,6 +119,29 @@ class Matches:
                 "completed": False,
                 "winner": None
             })
+
+        round_data_list = []
+
+        for match in matches:
+            # Extract player chess IDs
+            player1 = match["players"][0]
+            player2 = match["players"][1]
+
+            # Create a dictionary for each pair with relevant information
+            round_data = {
+                "players": [player1, player2],
+                "completed": False,
+                "winner": None
+            }
+            round_data_list.append(round_data)
+
+        # Append the individual round dictionaries to the rounds list
+        tournament.rounds.extend(round_data_list)
+
+        # print(f"Round Data: {round_data_list}")
+        # print(f"Updated Tournament Rounds: {self.tournament.rounds}")
+
+        # self.tournament.save()
         return matches
 
     def calculate_points(self):
@@ -107,4 +161,3 @@ class Matches:
                         self.points[player_id] += 1
                     else:
                         self.points[player_id] += 0
-
