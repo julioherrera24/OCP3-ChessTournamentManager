@@ -37,9 +37,9 @@ class Matches:
         round_data_list = []
 
         for match in matches:
-            # Extract player names and chess IDs
-            player1 = match[0]["chess_id"]
-            player2 = match[1]["chess_id"]
+            # Extract player chess IDs
+            player1 = match["players"][0]
+            player2 = match["players"][1]
 
             # Create a dictionary for each pair with relevant information
             round_data = {

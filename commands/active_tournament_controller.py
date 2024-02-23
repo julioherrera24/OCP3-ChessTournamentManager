@@ -88,7 +88,7 @@ class ActiveTournamentController:
         ActiveTournamentController.view_tournament_information(tournament)
 
         while True:
-            print("\nTournament Options:")
+            print("\n         -- ACTIVE TOURNAMENT OPTIONS --")
             print("1. Register a player for the currently selected tournament")
             print("2. Enter results of the match for the current round")
             print("3. Advance to the next round")
@@ -143,10 +143,11 @@ class ActiveTournamentController:
 
         selected_tournament_players = []
         while True:
-            print("\nType the number associated with the player you would like to add to the tournament or ")
+            print("\n--------------------------------------------------------------------------")
+            print("Type the number associated with the player you would like to add to the tournament or ")
             print("Type 'ID' to search for a player by Chess ID or ")
             print("Type 'Name' to search for a player by Name or ")
-            print("Type 'X' to return to Tournament options")
+            print("Type 'X' to finish registering players and/or to return to Tournament options")
 
             option = input("\nYour choice is: ")
 
@@ -178,47 +179,60 @@ class ActiveTournamentController:
                     else:
                         print("Invalid selection.")
                 else:
-                    print("No players match that name.")
+                    print("ERROR: No players match that name.")
 
             elif option.lower() == 'x':
-                break
+                # Ensure the number of players is even before proceeding
+                if len(selected_tournament_players) % 2 != 0:
+                    print("ERROR: The number of selected players must be even. Please add another player.")
+                else:
+                    break
 
             else:
-                print("Select the correct number or the correct 'keyword' to add players.")
+                print("ERROR: Select the correct Player number or the correct 'keyword' to add players.")
 
         tournament.add_players(selected_tournament_players)
         tournament.create_pairs(selected_tournament_players)
         tournament.save()
+        print("First round matches have been set. Returning to Tournament Options screen...")
 
     @staticmethod
     def enter_results(tournament):
         print("--------------------------------------------------------------------------")
-        print("                  -- ENTERING THE RESULTS --")
+        print("                 -- ENTERING THE MATCH RESULTS --")
 
-        print("Current tournament rounds:")
-        print(tournament.rounds)
+        print("\nCurrent matches in tournament round:")
+        for i, match in enumerate(tournament.rounds, 1):
+            player1, player2 = match['players']
+            print(f"{i}. {player1} vs. {player2}")
 
-        for round_data in tournament.rounds:
-            print(f"Processing round: {round_data}")
-            for match in round_data["players"]:
-                print(f"Processing match: {match}")
-                print(f"Match status: completed={match['completed']}, winner={match['winner']}")
+        for match in tournament.rounds:
+            # print(f"Processing round: {match}")
+            print(f"\n * MATCH: {match['players'][0]} vs {match['players'][1]} *")
+            print("-----------------------------------")
 
-                print(f"Match: {match['players'][0]} vs {match['players'][1]}")
-
-                if not match["completed"]:
-                    while True:
-                        winner = input("Enter the ID of the player who won the match (or 'draw' for a draw): ")
-                        if winner.lower() == 'draw':
-                            match['winner'] = None  # Mark the match as a draw
-                            match['completed'] = True
-                            break
-                        elif winner.isalnum() and winner in match["players"]:
-                            match['winner'] = winner
-                            match['completed'] = True
-                            break
-                        else:
-                            print("Invalid input. Please enter a valid player ID.")
+            if not match["completed"]:
+                while True:
+                    winner = input("\nEnter the Chess ID of the player who won this match (or 'draw' for a draw): ")
+                    if winner.lower() == 'draw':
+                        match['winner'] = None  # Mark the match as a draw
+                        match['completed'] = True
+                        print("Match ended as a DRAW, both players will receive 0.5 points.")
+                        tournament.update_points(match['players'], 0.5)
+                        break
+                    elif winner in match["players"]:
+                        match['winner'] = winner
+                        match['completed'] = True
+                        print(f"{winner} won this match, player will receive 1 point.")
+                        tournament.update_points([winner], 1)
+                        break
+                    else:
+                        print("Invalid input. Please enter a valid player ID.")
+            if tournament.current_round == tournament.number_of_rounds:
+                tournament.is_finished = True
+                tournament.is_completed = True
 
         tournament.save()
-        print("Exiting enter_results method.")
+        print("Updated Points:", tournament.points)
+        print("Scores have been saved. Returning to Tournament Menu...")
+

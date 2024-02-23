@@ -34,4 +34,4 @@ while True:
         print("You are now exiting the Chess Tournament Manager program...")
         break
     else:
-        print("Invalid choice. Please enter 1 - 4 or 5 to exit application.")
+        print("Invalid choice. Please enter '1 - 4' or '5' to exit application.")

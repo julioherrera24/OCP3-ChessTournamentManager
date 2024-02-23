@@ -22,6 +22,7 @@ class Tournament:
         self.registered_players = registered_players
         self.is_finished = is_finished
         self.rounds = rounds
+        self.points = {}
 
     def __str__(self):
         tournament_content = "- Tournament name: {name}\n".format(name=self.name)
@@ -41,7 +42,7 @@ class Tournament:
     def create_tournament(cls):
         """This method creates a new tournament with user input and calls the save function
          to save the information to a JSON file"""
-        print("----------------------------------------------------------------")
+        print("--------------------------------------------------------------------------")
         print("        -- CREATING A NEW TOURNAMENT --")
         name = input("Enter the tournament name: ")
 
@@ -84,6 +85,8 @@ class Tournament:
         tournament = cls(name, start_date, end_date, venue, number_of_rounds, current_round, is_completed,
                          registered_players, is_finished, rounds)
         tournament.save()
+        print("Tournament is now active. You can now access it in the 'View/Manage All Active Tournaments Screen")
+        print("Returning to Main Menu...")
 
     def save(self, filename=None):
         """This function serializes the Tournament information to the JSON file"""
@@ -149,6 +152,8 @@ class Tournament:
         """Add players to the tournament."""
         if not self.is_finished:
             self.registered_players.extend(players)
+            for player in players:
+                self.points[player["chess_id"]] = 0.0
             print(f"Players added to the tournament: {[player['name'] for player in players]}")
         else:
             print("Cannot add players to a finished tournament.")
@@ -165,6 +170,13 @@ class Tournament:
 
         pairs = matches.create_pairing(registered_players)
 
-        print("Generated match pairs: ")
+        print("\nGenerated match pairs: ")
         for pair in pairs:
-            print(f"{pair[0]['name']} vs. {pair[1]['name']}")
+            player1_id = pair["players"][0]
+            player2_id = pair["players"][1]
+            print(f"-- {player1_id} vs. {player2_id} --")
+
+    def update_points(self, players, points):
+        """Update points for the specified players."""
+        for player in players:
+            self.points[player] += points

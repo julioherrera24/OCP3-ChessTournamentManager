@@ -1,11 +1,11 @@
 {
-    "name": "Test 7",
+    "name": "test 11",
     "dates": {
-        "from": "07-07-2024",
-        "to": "07-07-2024"
+        "from": "08-09-2034",
+        "to": "08-09-2034"
     },
     "venue": "LA",
-    "number_of_rounds": 3,
+    "number_of_rounds": 2,
     "current_round": 1,
     "completed": false,
     "players": [
@@ -38,18 +38,18 @@
     "rounds": [
         {
             "players": [
-                "UY63209",
-                "CF24301"
-            ],
-            "completed": false,
-            "winner": null
-        },
-        {
-            "players": [
                 "YQ88272",
                 "CC33343"
             ],
-            "completed": false,
+            "completed": true,
+            "winner": "YQ88272"
+        },
+        {
+            "players": [
+                "UY63209",
+                "CF24301"
+            ],
+            "completed": true,
             "winner": null
         }
     ]

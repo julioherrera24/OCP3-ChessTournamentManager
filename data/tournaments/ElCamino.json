@@ -1,14 +1,20 @@
 {
-    "name": "Test6",
+    "name": "ElCamino",
     "dates": {
-        "from": "07-07-2023",
-        "to": "07-07-2023"
+        "from": "08-08-2025",
+        "to": "08-08-2025"
     },
-    "venue": "EL co",
+    "venue": "ELCO",
     "number_of_rounds": 3,
     "current_round": 1,
     "completed": false,
     "players": [
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        },
         {
             "name": "Henry Grant",
             "email": "mcknightjimmy@example.com",
@@ -38,39 +44,33 @@
             "email": "marywilson@example.net",
             "chess_id": "DP10300",
             "birthday": "25-08-1970"
-        },
-        {
-            "name": "Dustin Byrd",
-            "email": "michellehorn@example.org",
-            "chess_id": "HG65375",
-            "birthday": "20-12-1980"
         }
     ],
     "finished": false,
     "rounds": [
         {
-            "player1_name": "Billy Anderson",
-            "player1_chess_id": "DP10300",
-            "player2_name": "Dr. Katelyn Velez",
-            "player2_chess_id": "YQ88272",
-            "completed": false,
+            "players": [
+                "DP10300",
+                "UY63209"
+            ],
+            "completed": true,
             "winner": null
         },
         {
-            "player1_name": "Henry Grant",
-            "player1_chess_id": "CF24301",
-            "player2_name": "Ryan Warren",
-            "player2_chess_id": "QJ67186",
-            "completed": false,
-            "winner": null
+            "players": [
+                "CC33343",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": "CC33343"
         },
         {
-            "player1_name": "Dustin Byrd",
-            "player1_chess_id": "HG65375",
-            "player2_name": "Melissa Ford",
-            "player2_chess_id": "UY63209",
-            "completed": false,
-            "winner": null
+            "players": [
+                "QJ67186",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": "QJ67186"
         }
     ]
 }
