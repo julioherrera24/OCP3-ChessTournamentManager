@@ -1,0 +1,88 @@
+{
+    "name": "Koolaid",
+    "dates": {
+        "from": "09-09-2099",
+        "to": "09-09-2099"
+    },
+    "venue": "LAV",
+    "number_of_rounds": 3,
+    "current_round": 3,
+    "completed": true,
+    "players": [
+        {
+            "name": "Ryan Warren",
+            "email": "wcastillo@example.com",
+            "chess_id": "QJ67186",
+            "birthday": "29-08-1998"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        }
+    ],
+    "finished": true,
+    "rounds": [
+        {
+            "players": [
+                "QJ67186",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": "QJ67186"
+        },
+        {
+            "players": [
+                "UY63209",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "QJ67186",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "UY63209",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "QJ67186",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "UY63209",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": null
+        }
+    ]
+}

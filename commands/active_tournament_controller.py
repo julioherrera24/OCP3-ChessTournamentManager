@@ -88,6 +88,7 @@ class ActiveTournamentController:
         ActiveTournamentController.view_tournament_information(tournament)
 
         while True:
+            print("--------------------------------------------------------------------------")
             print("\n         -- ACTIVE TOURNAMENT OPTIONS --")
             print("1. Register a player for the currently selected tournament")
             print("2. Enter results of the match for the current round")
@@ -114,6 +115,14 @@ class ActiveTournamentController:
     def register_players(tournament):
         """this function retrieves all the players in every club in order to
             register them for a tournament"""
+        if tournament.current_round > 1:
+            print("ERROR: Tournament is already in progress. Cannot add more players.")
+            return
+
+        if tournament.is_completed:
+            print("ERROR: The Tournament is completed. There are no more rounds.")
+            return
+
         list_of_players = []
         club_files = []
 
@@ -194,16 +203,22 @@ class ActiveTournamentController:
 
         tournament.add_players(selected_tournament_players)
         matches = Matches.pair_randomly(tournament)
-        print("\nGenerated match pairs: ")
+        print("\nGenerated Round 1 Pairs: ")
+        print("------------------------")
         for pair in matches:
             player1_id = pair["players"][0]
             player2_id = pair["players"][1]
             print(f"-- {player1_id} vs. {player2_id} --")
+
         tournament.save()
         print("First round matches have been set. Returning to Tournament Options screen...")
 
     @staticmethod
     def enter_results(tournament):
+        if tournament.is_completed:
+            print("ERROR: The Tournament is completed. There are no more rounds.")
+            return
+
         print("--------------------------------------------------------------------------")
         print(f"               -- ENTERING ROUND {tournament.current_round}/{tournament.number_of_rounds} RESULTS --")
 
@@ -221,7 +236,7 @@ class ActiveTournamentController:
         for match in current_round_matches:
             # print(f"Processing round: {match}")
             print(f"\n * MATCH: {match['players'][0]} vs {match['players'][1]} *")
-            print("-----------------------------------")
+            print("-------------------------------")
 
             if not match["completed"]:
                 while True:
@@ -246,12 +261,23 @@ class ActiveTournamentController:
                 tournament.is_completed = True
                 print("Tournament is now completed. Tournament can now be found on 'View All Completed Tournaments'")
 
+        print("\nCurrent Leaderboard")
+        print("--------------------")
+
+        # Sort players based on points in descending order
+        sorted_players = sorted(tournament.points.items(), key=lambda item: item[1], reverse=True)
+
+        for player, points in sorted_players:
+            print(f"{player}: {points}")
+
         tournament.save()
-        print("Updated Points:", tournament.points)
-        print("Scores have been saved. Returning to Tournament Menu...")
+        print("Returning to 'Active Tournament Options' Menu...")
 
     @staticmethod
     def advance_to_next_round(tournament):
+        if tournament.is_completed:
+            print("ERROR: The Tournament is completed. There are no more rounds.")
+            return
         while True:
             confirmation = input("Are you sure you want to advance to the next round? (yes/no): ").lower()
 
@@ -267,13 +293,14 @@ class ActiveTournamentController:
                     tournament.current_round = tournament.number_of_rounds
                     break
 
-                print("Before generating match pairs:", tournament.rounds)
+                # print("Before generating match pairs:", tournament.rounds)
 
                 matches = Matches.pair_based_on_points(tournament)
 
-                print("After generating match pairs:", tournament.rounds)
+                # print("After generating match pairs:", tournament.rounds)
 
-                print("\nGenerated match pairs: ")
+                print(f"\nGenerated Round {tournament.current_round} Pairs: ")
+                print("-------------------------")
                 for pair in matches:
                     player1_id = pair["players"][0]
                     player2_id = pair["players"][1]
@@ -281,8 +308,8 @@ class ActiveTournamentController:
 
                 # Save the tournament state
                 tournament.save()
-                print(f"Tournament advanced to round {tournament.current_round}.")
-                print("Returning to 'Active Tournament Options' Menu")
+                print(f"Tournament advanced to Round {tournament.current_round}. Returning to 'Active Tournament "
+                      f"Options' Menu")
                 break
             else:
                 print("ERROR: Enter 'yes' or 'no")

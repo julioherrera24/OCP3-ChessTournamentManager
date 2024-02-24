@@ -23,43 +23,6 @@ class Matches:
         self.points = points if points is not None else {}
         self.tournament = tournament
 
-    def create_pairing(self, players):
-        """This function is responsible for creating the matchings for the matches
-        For the first round we match randomly if there are an even amount of players
-        For the following rounds, we calculate the points and create the matchings based on points"""
-        if self.tournament.current_round == 1:
-            matches = Matches.pair_randomly(players)
-        else:
-            matches = Matches.pair_based_on_points(self.tournament)
-
-        # creates a list to store individual round dictionaries
-        round_data_list = []
-
-        for match in matches:
-            # Extract player chess IDs
-            player1 = match["players"][0]
-            player2 = match["players"][1]
-
-            # Create a dictionary for each pair with relevant information
-            round_data = {
-                "players": [
-                    player1,
-                    player2
-                ],
-                "completed": False,
-                "winner": None
-            }
-            round_data_list.append(round_data)
-
-        # Append the individual round dictionaries to the rounds list
-        self.tournament.rounds.extend(round_data_list)
-
-        # print(f"Round Data: {round_data_list}")
-        # print(f"Updated Tournament Rounds: {self.tournament.rounds}")
-
-        # self.tournament.save()
-        return matches
-
     @staticmethod
     def pair_randomly(tournament):
         """We create random pairings for the first round from the list of registered players"""
@@ -104,11 +67,11 @@ class Matches:
     def pair_based_on_points(tournament):
         """We will create the following match pairings based on points. We first sort the players based on points
         and then create pairings from the top to bottom"""
-        print("Current Tournament Points:", tournament.points)
+        # print("Current Tournament Points:", tournament.points)
 
         sort_players = sorted(tournament.points.keys(), key=lambda player: tournament.points[player], reverse=True)
 
-        print("Sorted Players:", sort_players)
+        # print("Sorted Players:", sort_players)
 
         matches = []
         while len(sort_players) >= 2:
@@ -143,21 +106,3 @@ class Matches:
 
         # self.tournament.save()
         return matches
-
-    def calculate_points(self):
-        """we add 0.5 points for the players in a match if it ended up as a draw
-        we add 1 player to the player who was the winner of the match"""
-        for round_data in self.tournament.rounds:
-            winner = round_data.get("winner")
-            if winner is None:
-                players = round_data.get("players")
-                if players:
-                    for player_id in players:
-                        self.points[player_id] += 0.5
-            else:
-                for player_id in round_data["players"]:
-                    # Check if the player is player1 or player2 in the match
-                    if player_id == winner:
-                        self.points[player_id] += 1
-                    else:
-                        self.points[player_id] += 0

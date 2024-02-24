@@ -1,0 +1,56 @@
+{
+    "name": "TEST22",
+    "dates": {
+        "from": "09-09-2030",
+        "to": "09-09-2030"
+    },
+    "venue": "LA",
+    "number_of_rounds": 3,
+    "current_round": 2,
+    "completed": false,
+    "players": [
+        {
+            "name": "John Phillips",
+            "email": "gregbarnes@example.net",
+            "chess_id": "RW15089",
+            "birthday": "21-03-1935"
+        },
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "John Underwood",
+            "email": "shortmelvin@example.net",
+            "chess_id": "JW63361",
+            "birthday": "23-01-1921"
+        }
+    ],
+    "finished": false,
+    "rounds": [
+        {
+            "players": [
+                "RW15089",
+                "CC33343"
+            ],
+            "completed": true,
+            "winner": "RW15089"
+        },
+        {
+            "players": [
+                "UY63209",
+                "JW63361"
+            ],
+            "completed": true,
+            "winner": "JW63361"
+        }
+    ]
+}

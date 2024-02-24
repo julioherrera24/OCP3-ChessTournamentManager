@@ -3,8 +3,6 @@ import os
 
 from datetime import datetime
 
-from models.matches import Matches
-
 
 class Tournament:
     """This class contains information of a tournament, creates Tournament instances, loads and saves"""
@@ -85,7 +83,7 @@ class Tournament:
         tournament = cls(name, start_date, end_date, venue, number_of_rounds, current_round, is_completed,
                          registered_players, is_finished, rounds)
         tournament.save()
-        print("Tournament is now active. You can now access it in the 'View/Manage All Active Tournaments Screen")
+        print("Tournament is now active. You can now access it in the 'View/Manage All Active Tournaments Screen'")
         print("Returning to Main Menu...")
 
     def save(self, filename=None):
@@ -157,18 +155,6 @@ class Tournament:
             print(f"Players added to the tournament: {[player['name'] for player in players]}")
         else:
             print("Cannot add players to a finished tournament.")
-
-    def create_pairs(self, registered_players):
-        """Create pairs for matches based on the tournament logic."""
-        matches = Matches(self)
-
-        pairs = matches.create_pairing(registered_players)
-
-        print("\nGenerated match pairs: ")
-        for pair in pairs:
-            player1_id = pair["players"][0]
-            player2_id = pair["players"][1]
-            print(f"-- {player1_id} vs. {player2_id} --")
 
     def update_points(self, players, points):
         """Update points for the specified players."""

@@ -1,6 +1,8 @@
 from operator import itemgetter
 from datetime import datetime
-class ActiveTournamentView():
+
+
+class ActiveTournamentView:
     def __init__(self, tournament):
         self.tournament = tournament
 
@@ -36,4 +38,3 @@ class ActiveTournamentView():
         print("                      -- ALL PLAYERS --\n")
         for i, player in enumerate(players, start=1):
             print(f"{i}. {player}")
-
