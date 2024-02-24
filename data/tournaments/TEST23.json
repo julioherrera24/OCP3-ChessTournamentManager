@@ -1,0 +1,72 @@
+{
+    "name": "TEST23",
+    "dates": {
+        "from": "15-07-1996",
+        "to": "15-07-1996"
+    },
+    "venue": "Inglwood, CA",
+    "number_of_rounds": 2,
+    "current_round": 2,
+    "completed": true,
+    "players": [
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        },
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        }
+    ],
+    "finished": true,
+    "rounds": [
+        {
+            "players": [
+                "CF24301",
+                "CC33343"
+            ],
+            "completed": true,
+            "winner": "CC33343"
+        },
+        {
+            "players": [
+                "UY63209",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": "UY63209"
+        },
+        {
+            "players": [
+                "CC33343",
+                "UY63209"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "CF24301",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": "CF24301"
+        }
+    ]
+}

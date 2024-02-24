@@ -3,6 +3,7 @@
 from models.tournament import Tournament
 from manage_clubs import App
 from commands.active_tournament_controller import ActiveTournamentController
+from commands.completed_tournament_controller import CompletedTournamentController
 
 DATA_TOURNAMENTS_FOLDER = "data/tournaments"
 
@@ -29,6 +30,9 @@ while True:
 
     elif user_choice.isdigit() and user_choice == "3":
         ActiveTournamentController.manage_active_tournaments()
+
+    elif user_choice.isdigit() and user_choice == "4":
+        CompletedTournamentController.manage_completed_tournaments()
 
     elif user_choice.isdigit() and user_choice == "5":
         print("You are now exiting the Chess Tournament Manager program...")

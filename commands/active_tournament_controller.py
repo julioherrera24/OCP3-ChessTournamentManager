@@ -88,8 +88,8 @@ class ActiveTournamentController:
         ActiveTournamentController.view_tournament_information(tournament)
 
         while True:
-            print("--------------------------------------------------------------------------")
-            print("\n         -- ACTIVE TOURNAMENT OPTIONS --")
+            print("\n--------------------------------------------------------------------------")
+            print("                    -- ACTIVE TOURNAMENT OPTIONS --\n")
             print("1. Register a player for the currently selected tournament")
             print("2. Enter results of the match for the current round")
             print("3. Advance to the next round")
@@ -105,7 +105,7 @@ class ActiveTournamentController:
             elif inner_choice == "3":
                 ActiveTournamentController.advance_to_next_round(tournament)
             elif inner_choice == "4":
-                pass
+                ActiveTournamentController.generate_report(tournament)
             elif inner_choice == "5":
                 break  # Break the loop and go back to the main menu
             else:
@@ -115,12 +115,11 @@ class ActiveTournamentController:
     def register_players(tournament):
         """this function retrieves all the players in every club in order to
             register them for a tournament"""
-        if tournament.current_round > 1:
-            print("ERROR: Tournament is already in progress. Cannot add more players.")
-            return
-
         if tournament.is_completed:
             print("ERROR: The Tournament is completed. There are no more rounds.")
+            return
+        elif tournament.current_round > 1:
+            print("ERROR: Tournament is already in progress. Cannot add more players.")
             return
 
         list_of_players = []
@@ -313,3 +312,40 @@ class ActiveTournamentController:
                 break
             else:
                 print("ERROR: Enter 'yes' or 'no")
+
+    @staticmethod
+    def generate_report(tournament):
+        if not tournament.is_completed:
+            print("ERROR: Tournament needs to be completed in order to generate a report.")
+            return
+        else:
+            print("--------------------------------------------------------------------------")
+            print(f"             -- '{tournament.name}' TOURNAMENT REPORT --")
+
+            # Display tournament information
+            print(f"\nTournament Name: {tournament.name}")
+            print(f"Venue: {tournament.venue}")
+            print(f"\nStart Date: {tournament.start_date}")
+            print(f"End Date: {tournament.end_date}")
+
+            print(f"\nTotal Number of Rounds: {tournament.number_of_rounds}")
+            print(f"Total Number of Players: {len(tournament.registered_players)}")
+
+            # Display players sorted by points descending
+            print("\nPlayer Ranking Leaderboard:")
+            print("----------------------------")
+            sorted_players = sorted(tournament.points.items(), key=lambda item: item[1], reverse=True)
+            for player, points in sorted_players:
+                print(f"{player}: {points}")
+
+            # Display rounds and matches
+            print("\nRounds and Matches:")
+            print("--------------------")
+            # print("DEBUG - Rounds data structure:")
+            # print(tournament.rounds)
+            for i, match in enumerate(tournament.rounds, 1):
+                print(f"\n-- Match {i} --")
+                print(f"Match: {match['players'][0]} vs. {match['players'][1]}")
+                print(f"Winner: {match['winner']}")
+
+            print("\n** End of Tournament Report **")
