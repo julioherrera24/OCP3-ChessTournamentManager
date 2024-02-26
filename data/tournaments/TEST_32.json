@@ -1,0 +1,14 @@
+{
+    "name": "TEST 32",
+    "dates": {
+        "from": "05-06-2099",
+        "to": "05-06-2099"
+    },
+    "venue": "LA310",
+    "number_of_rounds": 2,
+    "current_round": 1,
+    "completed": false,
+    "players": [],
+    "finished": false,
+    "rounds": []
+}

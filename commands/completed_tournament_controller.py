@@ -16,16 +16,7 @@ class CompletedTournamentController:
 
     @staticmethod
     def view_tournament_information(tournament):
-        print(f"Name: {tournament.name}")
-        print(f"Start Date: {tournament.start_date}")
-        print(f"End Date: {tournament.end_date}")
-        print(f"Venue: {tournament.venue}")
-        print(f"Number of Rounds: {tournament.number_of_rounds}")
-        print(f"Current Round: {tournament.current_round}")
-        print(f"Completed: {tournament.is_completed}")
-        print(f"Players: {tournament.registered_players}")
-        print(f"Finished: {tournament.is_finished}")
-        print(f"Rounds: {tournament.rounds}")
+        CompletedTournamentView.display_tournament_information(tournament)
 
     @staticmethod
     def get_completed_tournaments(folder_path):
@@ -51,10 +42,7 @@ class CompletedTournamentController:
             completed_tournaments = CompletedTournamentController.get_completed_tournaments(DATA_TOURNAMENTS_FOLDER)
             completed_tournaments = CompletedTournamentView.display_completed_tournaments(completed_tournaments)
 
-            print("\nOptions:")
-            print("Select a tournament number to view or Enter 'X' to go back to the main menu")
-
-            user_choice = input("Enter your choice: ")
+            user_choice = CompletedTournamentView.get_tournament_choice()
 
             if user_choice.lower() == "x":
                 break
@@ -76,22 +64,16 @@ class CompletedTournamentController:
     @staticmethod
     def view_selected_tournament(selected_tournament):
         """ this function will give the ability to modify a tournament"""
-        print("--------------------------------------------------------------------------")
+        print("-" * 74)
         print(f"VIEWING: {selected_tournament}")
 
         # load the tournament and create a tournament object
         tournament = Tournament.load_tournament(selected_tournament)
 
-        print("\nCurrent Tournament Information:")
         CompletedTournamentController.view_tournament_information(tournament)
 
         while True:
-            print("\n--------------------------------------------------------------------------")
-            print("                    -- COMPLETED TOURNAMENT OPTIONS --\n")
-            print("1. Generate a tournament report")
-            print("2. Return to the Completed Tournaments List Menu")
-
-            inner_choice = input("\nEnter your choice: ")
+            inner_choice = CompletedTournamentView.completed_tournament_options_choice()
 
             if inner_choice == "1":
                 CompletedTournamentController.generate_report(tournament)
@@ -102,33 +84,5 @@ class CompletedTournamentController:
 
     @staticmethod
     def generate_report(tournament):
-        print("--------------------------------------------------------------------------")
-        print(f"             -- '{tournament.name}' TOURNAMENT REPORT --")
-
-        # Display tournament information
-        print(f"\nTournament Name: {tournament.name}")
-        print(f"Venue: {tournament.venue}")
-        print(f"\nStart Date: {tournament.start_date}")
-        print(f"End Date: {tournament.end_date}")
-
-        print(f"\nTotal Number of Rounds: {tournament.number_of_rounds}")
-        print(f"Total Number of Players: {len(tournament.registered_players)}")
-
-        # Display players sorted by points descending
-        print("\nPlayer Ranking Leaderboard:")
-        print("----------------------------")
-        sorted_players = sorted(tournament.points.items(), key=lambda item: item[1], reverse=True)
-        for player, points in sorted_players:
-            print(f"{player}: {points}")
-
-        # Display rounds and matches
-        print("\nRounds and Matches:")
-        print("--------------------")
-        # print("DEBUG - Rounds data structure:")
-        # print(tournament.rounds)
-        for i, match in enumerate(tournament.rounds, 1):
-            print(f"\n-- Match {i} --")
-            print(f"Match: {match['players'][0]} vs. {match['players'][1]}")
-            print(f"Winner: {match['winner']}")
-
-        print("\n** End of Tournament Report **")
+        # loaded_tournament = Tournament.load_tournament(tournament)
+        CompletedTournamentView.display_report(tournament)

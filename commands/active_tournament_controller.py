@@ -18,16 +18,7 @@ class ActiveTournamentController:
 
     @staticmethod
     def view_tournament_information(tournament):
-        print(f"Name: {tournament.name}")
-        print(f"Start Date: {tournament.start_date}")
-        print(f"End Date: {tournament.end_date}")
-        print(f"Venue: {tournament.venue}")
-        print(f"Number of Rounds: {tournament.number_of_rounds}")
-        print(f"Current Round: {tournament.current_round}")
-        print(f"Completed: {tournament.is_completed}")
-        print(f"Players: {tournament.registered_players}")
-        print(f"Finished: {tournament.is_finished}")
-        print(f"Rounds: {tournament.rounds}")
+        ActiveTournamentView.display_tournament_information(tournament)
 
     @staticmethod
     def get_active_tournaments(folder_path):
@@ -53,10 +44,7 @@ class ActiveTournamentController:
             active_tournaments = ActiveTournamentController.get_active_tournaments(DATA_TOURNAMENTS_FOLDER)
             active_tournaments = ActiveTournamentView.display_active_tournaments(active_tournaments)
 
-            print("\nOptions:")
-            print("Select a tournament number to view/modify or Enter 'X' to go back to the main menu")
-
-            user_choice = input("Enter your choice: ")
+            user_choice = ActiveTournamentView.get_tournament_choice()
 
             if user_choice.lower() == "x":
                 break
@@ -69,34 +57,24 @@ class ActiveTournamentController:
                     # print(f"Selected tournament: {selected_tournament}")
                     # print(f"Selected tournament file path: {selected_tournament_file_path}")
                     ActiveTournamentController.modify_selected_tournament(selected_tournament_file_path)
-
                 else:
-                    print("Invalid tournament number. Please enter a valid number.")
+                    print(f"Invalid tournament number. Please enter a number from 1 - {len(active_tournaments)}.")
             else:
-                print("Invalid choice. Please enter a valid number or 'X'.")
+                print("Invalid choice. Please enter a valid number or 'X' to go back to main menu.")
 
     @staticmethod
     def modify_selected_tournament(selected_tournament):
         """ this function will give the ability to modify a tournament"""
-        print("--------------------------------------------------------------------------")
+        print("-" * 74)
         print(f"VIEWING/MODIFYING: {selected_tournament}")
 
         # load the tournament and create a tournament object
         tournament = Tournament.load_tournament(selected_tournament)
 
-        print("\nCurrent Tournament Information:")
         ActiveTournamentController.view_tournament_information(tournament)
 
         while True:
-            print("\n--------------------------------------------------------------------------")
-            print("                    -- ACTIVE TOURNAMENT OPTIONS --\n")
-            print("1. Register a player for the currently selected tournament")
-            print("2. Enter results of the match for the current round")
-            print("3. Advance to the next round")
-            print("4. Generate a tournament report")
-            print("5. Return to the Active Tournaments List Menu")
-
-            inner_choice = input("\nEnter your choice: ")
+            inner_choice = ActiveTournamentView.active_tournament_options_choice()
 
             if inner_choice == "1":
                 ActiveTournamentController.register_players(tournament)
@@ -109,7 +87,7 @@ class ActiveTournamentController:
             elif inner_choice == "5":
                 break  # Break the loop and go back to the main menu
             else:
-                print("Invalid choice. Please enter a valid number option.")
+                print("Invalid choice. Please enter a valid number option (1 - 5).")
 
     @staticmethod
     def register_players(tournament):
@@ -151,14 +129,9 @@ class ActiveTournamentController:
             return None
 
         selected_tournament_players = []
-        while True:
-            print("\n--------------------------------------------------------------------------")
-            print("Type the number associated with the player you would like to add to the tournament or ")
-            print("Type 'ID' to search for a player by Chess ID or ")
-            print("Type 'Name' to search for a player by Name or ")
-            print("Type 'X' to finish registering players and/or to return to Tournament options")
 
-            option = input("\nYour choice is: ")
+        while True:
+            option = ActiveTournamentView.register_players_options()
 
             if option.isdigit() and 1 <= int(option) <= len(list_of_players):
                 selected_tournament_players.append(list_of_players[int(option) - 1])
@@ -202,6 +175,7 @@ class ActiveTournamentController:
 
         tournament.add_players(selected_tournament_players)
         matches = Matches.pair_randomly(tournament)
+
         print("\nGenerated Round 1 Pairs: ")
         print("------------------------")
         for pair in matches:
@@ -218,11 +192,12 @@ class ActiveTournamentController:
             print("ERROR: The Tournament is completed. There are no more rounds.")
             return
 
-        print("--------------------------------------------------------------------------")
-        print(f"               -- ENTERING ROUND {tournament.current_round}/{tournament.number_of_rounds} RESULTS --")
+        print("-" * 74)
+        print(f"{' ' * 15}-- ENTERING ROUND {tournament.current_round}/{tournament.number_of_rounds} RESULTS --")
 
         # this will hold the matches in the round that are not completed
         current_round_matches = []
+
         for match in tournament.rounds:
             if not match["completed"]:
                 current_round_matches.append(match)
@@ -235,7 +210,7 @@ class ActiveTournamentController:
         for match in current_round_matches:
             # print(f"Processing round: {match}")
             print(f"\n * MATCH: {match['players'][0]} vs {match['players'][1]} *")
-            print("-------------------------------")
+            print("-" * 31)
 
             if not match["completed"]:
                 while True:
@@ -258,7 +233,7 @@ class ActiveTournamentController:
                     all(match["completed"] for match in tournament.rounds)):
                 tournament.is_finished = True
                 tournament.is_completed = True
-                print("Tournament is now completed. Tournament can now be found on 'View All Completed Tournaments'")
+                print("\nTournament is now completed. Tournament can now be found on 'View All Completed Tournaments'")
 
         print("\nCurrent Leaderboard")
         print("--------------------")
@@ -277,12 +252,14 @@ class ActiveTournamentController:
         if tournament.is_completed:
             print("ERROR: The Tournament is completed. There are no more rounds.")
             return
+
         while True:
             confirmation = input("Are you sure you want to advance to the next round? (yes/no): ").lower()
 
             if confirmation == "no":
                 print("Round advancement is canceled. Returning to Active Tournament Options Menu...")
                 break
+
             elif confirmation == "yes":
                 tournament.current_round += 1
 
@@ -319,33 +296,4 @@ class ActiveTournamentController:
             print("ERROR: Tournament needs to be completed in order to generate a report.")
             return
         else:
-            print("--------------------------------------------------------------------------")
-            print(f"             -- '{tournament.name}' TOURNAMENT REPORT --")
-
-            # Display tournament information
-            print(f"\nTournament Name: {tournament.name}")
-            print(f"Venue: {tournament.venue}")
-            print(f"\nStart Date: {tournament.start_date}")
-            print(f"End Date: {tournament.end_date}")
-
-            print(f"\nTotal Number of Rounds: {tournament.number_of_rounds}")
-            print(f"Total Number of Players: {len(tournament.registered_players)}")
-
-            # Display players sorted by points descending
-            print("\nPlayer Ranking Leaderboard:")
-            print("----------------------------")
-            sorted_players = sorted(tournament.points.items(), key=lambda item: item[1], reverse=True)
-            for player, points in sorted_players:
-                print(f"{player}: {points}")
-
-            # Display rounds and matches
-            print("\nRounds and Matches:")
-            print("--------------------")
-            # print("DEBUG - Rounds data structure:")
-            # print(tournament.rounds)
-            for i, match in enumerate(tournament.rounds, 1):
-                print(f"\n-- Match {i} --")
-                print(f"Match: {match['players'][0]} vs. {match['players'][1]}")
-                print(f"Winner: {match['winner']}")
-
-            print("\n** End of Tournament Report **")
+            ActiveTournamentView.display_report(tournament)
