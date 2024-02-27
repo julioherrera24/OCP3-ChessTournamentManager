@@ -65,11 +65,15 @@ Chess Tournament Manager is a Python program that helps you organize and manage 
 
 ## Generating a flake8 report
 1. Navigate to the directory containing this repository based on your computer
+
    $ cd OCP3-ChessTournamentManager    (windows)
+
    cd OCP3-ChessTournament_Manager     (mac)
    
 2. Run the following command
+
    $ flake8 --max-line-length 119 --format=html --htmldir=flake8_report    (windows)
+
    flake8 --max-line-length 119 --format=html --htmldir=flake8_report      (mac)
 
 3. View report in the new flake8_report directory created in the repository
