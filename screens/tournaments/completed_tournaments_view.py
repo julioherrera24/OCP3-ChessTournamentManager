@@ -4,16 +4,20 @@ from datetime import datetime
 
 class CompletedTournamentView:
     def __init__(self, tournament):
+        """Constructor initializes objects of this class with specific tournament parameter"""
         self.tournament = tournament
+
+    """A static method belongs to the class rather than the instance of the class. 
+            It can be called on the class itself, without creating an instance."""
 
     @staticmethod
     def display_completed_tournaments(completed_tournaments):
-        """This function displays the active tournaments found from earliest to oldest based on start date"""
+        """This function displays the completed tournaments found from earliest to oldest based on end date"""
         if len(completed_tournaments) >= 1:
-            # list to hold all tournament name and start_date as date object to sort
+            # list to hold all tournament name and end_date as date object to sort
             completed_tournaments_dates = []
 
-            # iterate through active_tournaments to convert string date to object date
+            # iterate through completed_tournaments to convert string date to object date
             for file_name, end_date in completed_tournaments:
                 date_obj = datetime.strptime(end_date, "%d-%m-%Y").date()
                 completed_tournaments_dates.append((file_name, date_obj))
@@ -21,7 +25,7 @@ class CompletedTournamentView:
             # sort dates from earliest to oldest
             completed_tournaments_dates.sort(key=itemgetter(1), reverse=True)
 
-            # print sorted active tournaments with string dates
+            # print sorted completed tournaments with string dates
             print()
             print("-" * 74)
             print(f"{' '*20}-- COMPLETED TOURNAMENT(s) --\n")
@@ -35,6 +39,8 @@ class CompletedTournamentView:
 
     @staticmethod
     def display_tournament_information(tournament):
+        """This method displays the tournament information of the tournament
+                object in an organized manner"""
         print(f"\n{' ' * 20}-- CURRENT TOURNAMENT INFORMATION --\n")
         print(f"Name: {tournament.name}")
         print(f"Start Date: {tournament.start_date}")
@@ -56,12 +62,15 @@ class CompletedTournamentView:
 
     @staticmethod
     def get_tournament_choice():
+        # method for completed tournament selection
         print("\nSelect a tournament number to view/modify or Enter 'X' to go back to the main menu")
         choice = input("Enter your choice: ")
         return choice
 
     @staticmethod
     def completed_tournament_options_choice():
+        """this method displays all the options the user has for the
+                selected tournament and returns their choice"""
         print()
         print("-" * 74)
         print(f"{' ' * 20}-- COMPLETED TOURNAMENT OPTIONS --\n")
@@ -74,6 +83,7 @@ class CompletedTournamentView:
 
     @staticmethod
     def display_report(tournament):
+        """This method displays the tournament report in an organized manner"""
         print()
         print("-" * 74)
         print(f"{' ' * 20}-- '{tournament.name}' TOURNAMENT REPORT --")

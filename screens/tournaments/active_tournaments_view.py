@@ -4,7 +4,11 @@ from datetime import datetime
 
 class ActiveTournamentView:
     def __init__(self, tournament):
+        """Constructor initializes objects of this class with specific tournament parameter"""
         self.tournament = tournament
+
+    """A static method belongs to the class rather than the instance of the class. 
+        It can be called on the class itself, without creating an instance."""
 
     @staticmethod
     def display_active_tournaments(active_tournaments):
@@ -35,6 +39,7 @@ class ActiveTournamentView:
 
     @staticmethod
     def display_all_players(players):
+        """This method displays all the players found in all the clubs"""
         print()
         print("-" * 74)
         print(f"{' '*20}-- ALL PLAYERS --\n")
@@ -43,6 +48,8 @@ class ActiveTournamentView:
 
     @staticmethod
     def display_tournament_information(tournament):
+        """This method displays the tournament information of the tournament
+        object in an organized manner"""
         print(f"\n{' '*20}-- CURRENT TOURNAMENT INFORMATION --\n")
         print(f"Name: {tournament.name}")
         print(f"Start Date: {tournament.start_date}")
@@ -64,12 +71,15 @@ class ActiveTournamentView:
 
     @staticmethod
     def get_tournament_choice():
+        # method for active tournament selection
         print("\nSelect a tournament number to view/modify or Enter 'X' to go back to the main menu")
         choice = input("Enter your choice: ")
         return choice
 
     @staticmethod
     def active_tournament_options_choice():
+        """this method displays all the options the user has for the
+        selected tournament and returns their choice"""
         print()
         print("-" * 74)
         print(f"{' '*20}-- ACTIVE TOURNAMENT OPTIONS --\n")
@@ -85,6 +95,7 @@ class ActiveTournamentView:
 
     @staticmethod
     def register_players_options():
+        """This method displays the options for registering players and returns the user choice"""
         print()
         print("-" * 74)
         print("Type the number associated with the player you would like to add to the tournament or ")
@@ -97,6 +108,8 @@ class ActiveTournamentView:
 
     @staticmethod
     def display_report(tournament):
+        """This method displays the tournament report in an organized manner"""
+
         print()
         print("-" * 74)
         print(f"{' ' * 20}-- '{tournament.name}' TOURNAMENT REPORT --")

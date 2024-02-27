@@ -5,7 +5,8 @@ from datetime import datetime
 
 
 class Tournament:
-    """This class contains information of a tournament, creates Tournament instances, loads and saves"""
+    """This class contains information of a tournament, creates Tournament instances,
+    loads, saves tournament instances as well"""
     def __init__(self, name=None, start_date=None, end_date=None, venue=None, number_of_rounds=None,
                  current_round=None, is_completed=False, registered_players=None,
                  is_finished=None, rounds=None):
@@ -22,26 +23,14 @@ class Tournament:
         self.rounds = rounds
         self.points = {}
 
-    def __str__(self):
-        tournament_content = "- Tournament name: {name}\n".format(name=self.name)
-        tournament_content += "- Start Date: {start_date}\n".format(start_date=self.start_date)
-        tournament_content += "- End Date: {end_date}\n".format(end_date=self.end_date)
-        tournament_content += "- Venue: {location}\n".format(location=self.venue)
-        tournament_content += "- Total Number of rounds: {num}\n".format(num=self.number_of_rounds)
-        tournament_content += "- Current Round: {curr}\n".format(curr=self.current_round)
-        tournament_content += "- Completed?: {completed}\n".format(completed=self.is_completed)
-        tournament_content += "- Players: {players}\n".format(players=self.registered_players)
-        tournament_content += "- Finished?: {finished}\n".format(finished=self.is_finished)
-        tournament_content += "- Rounds: {rounds}\n".format(rounds=self.rounds)
-
-        return tournament_content
-
     @classmethod
     def create_tournament(cls):
         """This method creates a new tournament with user input and calls the save function
-         to save the information to a JSON file"""
-        print("--------------------------------------------------------------------------")
-        print("        -- CREATING A NEW TOURNAMENT --")
+         to save the information to a JSON file inside the data/tournaments folder"""
+        print("-" * 74)
+        print(f"{' ' * 20}-- CREATING A NEW TOURNAMENT --")
+
+        # set the name of the tournament instance
         name = input("Enter the tournament name: ")
 
         # Validate user gives us the correct start date format
@@ -52,7 +41,7 @@ class Tournament:
                 start_date = start_date_date.strftime("%d-%m-%Y")
                 break  # breaks loop if the input is correctly formatted
             except ValueError:
-                print("Invalid date format. Enter data as DD-MM-YYYY.")
+                print("Invalid date format. Enter date as DD-MM-YYYY.")
 
         # validate user gives us the correct end date format
         while True:
@@ -64,6 +53,7 @@ class Tournament:
             except ValueError:
                 print("Invalid date format. Enter date as DD-MM-YYYY")
 
+        # sets the venue of the tournament, some venues may have numbers or symbols in their name
         venue = input("Enter the tournament's venue: ")
 
         # Validate and get the number of rounds
@@ -75,6 +65,7 @@ class Tournament:
             else:
                 print("Invalid input. Please enter a valid number.")
 
+        # initial values of attributes
         current_round = 1
         is_completed = False
         registered_players = []
@@ -82,15 +73,20 @@ class Tournament:
         rounds = []
         tournament = cls(name, start_date, end_date, venue, number_of_rounds, current_round, is_completed,
                          registered_players, is_finished, rounds)
+
+        # save tournament instance
         tournament.save()
+
         print("Tournament is now active. You can now access it in the 'View/Manage All Active Tournaments Screen'")
         print("Returning to Main Menu...")
 
     def save(self, filename=None):
         """This function serializes the Tournament information to the JSON file"""
-        # if not directory of data/tournaments exists then we make one
+        # if no directory of data/tournaments exists then we make one
         if not os.path.exists("data/tournaments"):
             os.makedirs("data/tournaments")
+
+        # set the name of file as tournament name if filename is None
         if filename is None:
             if self.name is not None:
                 filename = f"data/tournaments/{self.name.replace(' ', '_')}.json"
@@ -100,6 +96,7 @@ class Tournament:
         else:
             filename += f"data/tournaments/{filename}.json"
 
+        # save the information structured for easy extraction, replicates the example tournament instance
         with open(filename, "w") as fp:
             json.dump(
                 {
@@ -114,23 +111,27 @@ class Tournament:
                     "completed": self.is_completed,
                     "players": self.registered_players,
                     "finished": self.is_finished,
-                    "rounds": self.rounds
+                    "rounds": self.rounds,
+                    "points": self.points
                 }, fp, indent=4)
 
             print(f"\nTournament data has been saved to {filename}.")
 
     @classmethod
     def load_tournament(cls, filename):
-        # print(f"Loading tournament from file: {filename}")
+        """This method loads the information of a tournament instance from the JSON file."""
+
+        # if no tournament file exists, return print statement
         if not os.path.exists(filename):
             print("No tournament was found.")
             return None
 
+        # load information from file
         with open(filename) as file:
             data = json.load(file)
 
         try:
-            return cls(
+            tournament = cls(
                 name=data["name"],
                 start_date=data["dates"]["from"],
                 end_date=data["dates"]["to"],
@@ -142,12 +143,19 @@ class Tournament:
                 is_finished=data.get("finished", "false"),
                 rounds=data["rounds"],
             )
+
+            # Load points if available in the data
+            tournament.points = data.get("points", {})
+
+            return tournament
+
         except KeyError:
             print("ERROR: missing key in tournament data")
             return None
 
     def add_players(self, players):
-        """Add players to the tournament."""
+        """This method adds players to the tournament. We use this method when registering
+        players to a tournament. This method also initializes a registered players points to 0."""
         if not self.is_finished:
             self.registered_players.extend(players)
             for player in players:
@@ -157,9 +165,9 @@ class Tournament:
             print("Cannot add players to a finished tournament.")
 
     def update_points(self, players, points):
-        """Update points for the specified players."""
+        """This method updates the points for the specified players in the tournament."""
         for player in players:
             # Use get method to safely retrieve the value associated with the player's key
             current_points = self.points.get(player, 0.0)
-            # Update points for the player
+            # Update points for the player based on result of the match from "enter_results" method in controller
             self.points[player] = current_points + points
