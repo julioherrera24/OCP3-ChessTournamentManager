@@ -16,8 +16,8 @@ class CompletedTournamentController:
         """Constructor initializes objects of this class with specific tournament parameter"""
         self.tournament = tournament
 
-    """A static method belongs to the class rather than the instance of the class. 
-    It can be called on the class itself, without creating an instance."""
+    # A static method belongs to the class rather than the instance of the class.
+    # It can be called on the class itself, without creating an instance.
     @staticmethod
     def view_tournament_information(tournament):
         # this method calls the view method that displays the tournament information

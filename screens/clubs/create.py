@@ -1,5 +1,4 @@
 from commands import ClubCreateCmd
-
 from ..base_screen import BaseScreen
 
 

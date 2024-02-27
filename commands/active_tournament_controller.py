@@ -16,8 +16,8 @@ class ActiveTournamentController:
         """Constructor initializes objects of this class with specific tournament parameter"""
         self.tournament = tournament
 
-    """A static method belongs to the class rather than the instance of the class. 
-    It can be called on the class itself, without creating an instance."""
+    """A static method belongs to the class rather than the instance of the class."""
+    """It can be called on the class itself, without creating an instance."""
     @staticmethod
     def view_tournament_information(tournament):
         # this method calls the view method that displays the tournament information
@@ -271,8 +271,8 @@ class ActiveTournamentController:
                         tournament.update_points(match['players'], 0.5)
                         break
                     elif winner in match["players"]:
-                        """if the entered chess_id matches any player in the round, we will give player 1 point and 
-                        set them as winner"""
+                        # if the entered chess_id matches any player in the round, we will give player 1 point and
+                        # set them as winner
                         match['winner'] = winner
                         match['completed'] = True
                         print(f"{winner} won this match, player will receive 1 point.")
