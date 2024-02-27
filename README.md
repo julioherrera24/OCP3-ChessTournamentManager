@@ -28,6 +28,7 @@ Chess Tournament Manager is a Python program that helps you organize and manage 
 4. Create and activate a virtaul environment
 
    python -m venv env
+
    env/scripts/activate (to activate)
    
 5. Install the necessary packages according to 'requirements.txt'
@@ -51,6 +52,7 @@ Chess Tournament Manager is a Python program that helps you organize and manage 
 4. Create and activate a virtual environment.
 
    python -m venv env
+
    source env/bin/activate
    
 5. Install the necessary packages according to 'requirements.txt'.
