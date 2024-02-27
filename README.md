@@ -18,27 +18,33 @@ Chess Tournament Manager is a Python program that helps you organize and manage 
 ## Instructions for setting up and running program on Windows
 1. Open Terminal
 2. Download the files from this repository or create a clone using the code below.
-     
+   $ git clone https://github.com/julioherrera24/OCP3-ChessTournamentManager.git
+   
 3. Navigate to the directory containing this repository.
    $ cd OCP3-ChessTournamentManager
+   
 4. Create and activate a virtaul environment
    python -m venv env
    env/scripts/activate (to activate)
+   
 5. Install the necessary packages according to 'requirements.txt'
    pip install -r requirements.txt
+   
 6. Open and run the file 'main.py'
    .\main.py
 
 ## Instructions for setting up and running program on Mac
 1. Open the command prompt/Terminal.
 2. Download the files from this repository or create a clone using the code below.
-
+   git clone https://github.com/julioherrera24/OCP3-ChessTournamentManager.git
+   
 3. Navigate to the directory containing this repository.
    cd OCP3-ChessTournamentManager
 
 4. Create and activate a virtual environment.
    python -m venv env
    source env/bin/activate
+   
 5. Install the necessary packages according to 'requirements.txt'.
    python3 -m pip install -r requirements.txt
 
