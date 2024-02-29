@@ -1,0 +1,94 @@
+{
+    "name": "TEST113",
+    "dates": {
+        "from": "09-09-2099",
+        "to": "09-09-2099"
+    },
+    "venue": "la",
+    "number_of_rounds": 3,
+    "current_round": 3,
+    "completed": true,
+    "players": [
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        },
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        }
+    ],
+    "finished": true,
+    "rounds": [
+        {
+            "players": [
+                "UY63209",
+                "YQ88272"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "CF24301",
+                "CC33343"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "CC33343",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "YQ88272",
+                "UY63209"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "CC33343",
+                "CF24301"
+            ],
+            "completed": true,
+            "winner": null
+        },
+        {
+            "players": [
+                "YQ88272",
+                "UY63209"
+            ],
+            "completed": true,
+            "winner": null
+        }
+    ],
+    "points": {
+        "CC33343": 1.5,
+        "CF24301": 1.5,
+        "YQ88272": 1.5,
+        "UY63209": 1.5
+    }
+}

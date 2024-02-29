@@ -1,0 +1,124 @@
+{
+    "name": "test11",
+    "dates": {
+        "from": "09-09-2099",
+        "to": "09-09-2099"
+    },
+    "venue": "la",
+    "number_of_rounds": 3,
+    "current_round": 1,
+    "completed": false,
+    "players": [
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        },
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        },
+        {
+            "name": "Henry Grant",
+            "email": "mcknightjimmy@example.com",
+            "chess_id": "CF24301",
+            "birthday": "28-04-1936"
+        },
+        {
+            "name": "Juoker",
+            "email": "ok@yahooo.com",
+            "chess_id": "CC33343",
+            "birthday": "05-12-2009"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        },
+        {
+            "name": "Billy Anderson",
+            "email": "marywilson@example.net",
+            "chess_id": "DP10300",
+            "birthday": "25-08-1970"
+        },
+        {
+            "name": "Ryan Warren",
+            "email": "wcastillo@example.com",
+            "chess_id": "QJ67186",
+            "birthday": "29-08-1998"
+        },
+        {
+            "name": "Dr. Katelyn Velez",
+            "email": "hunterlopez@example.com",
+            "chess_id": "YQ88272",
+            "birthday": "03-07-2008"
+        },
+        {
+            "name": "Melissa Ford",
+            "email": "christinesanchez@example.com",
+            "chess_id": "UY63209",
+            "birthday": "06-08-1945"
+        }
+    ],
+    "finished": false,
+    "rounds": [
+        {
+            "players": [
+                "CC33343",
+                "CF24301"
+            ],
+            "completed": false,
+            "winner": null
+        },
+        {
+            "players": [
+                "CF24301",
+                "CC33343"
+            ],
+            "completed": false,
+            "winner": null
+        },
+        {
+            "players": [
+                "YQ88272",
+                "UY63209"
+            ],
+            "completed": false,
+            "winner": null
+        },
+        {
+            "players": [
+                "DP10300",
+                "QJ67186"
+            ],
+            "completed": false,
+            "winner": null
+        },
+        {
+            "players": [
+                "YQ88272",
+                "UY63209"
+            ],
+            "completed": false,
+            "winner": null
+        }
+    ],
+    "points": {
+        "CC33343": 0.0,
+        "CF24301": 0.0,
+        "YQ88272": 0.0,
+        "UY63209": 0.0,
+        "QJ67186": 0.0,
+        "DP10300": 0.0
+    }
+}

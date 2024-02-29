@@ -155,11 +155,18 @@ class Tournament:
 
     def add_players(self, players):
         """This method adds players to the tournament. We use this method when registering
-        players to a tournament. This method also initializes a registered players points to 0."""
+            players to a tournament. This method also initializes a registered player's points to 0."""
         if not self.is_finished:
-            self.registered_players.extend(players)
+            # if user decides to add more players after initial attempt, if they add same player then this will
+            # check and ensure to not duplicate player but checking chess id
             for player in players:
-                self.points[player["chess_id"]] = 0.0
+                # Check if the player with the same 'chess_id' is not already in the registered players list
+                if not any(p['chess_id'] == player['chess_id'] for p in self.registered_players):
+                    self.registered_players.append(player)
+                    self.points[player["chess_id"]] = 0.0
+                else:
+                    print(f"Player {player['name']} with chess ID {player['chess_id']} "
+                          f"was already registered in the tournament.")
             print(f"Players added to the tournament: {[player['name'] for player in players]}")
         else:
             print("Cannot add players to a finished tournament.")

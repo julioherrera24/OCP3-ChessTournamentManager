@@ -167,16 +167,24 @@ class ActiveTournamentController:
 
             # if user selects by entering player number from list
             if option.isdigit() and 1 <= int(option) <= len(list_of_players):
-                selected_tournament_players.append(list_of_players[int(option) - 1])
-                print(f"Added {list_of_players[int(option) - 1].get('name')} to the tournament.")
+                selected_player = list_of_players[int(option) - 1]
+
+                if selected_player not in selected_tournament_players:
+                    selected_tournament_players.append(selected_player)
+                    print(f"Added {list_of_players[int(option) - 1].get('name')} to the tournament.")
+                else:
+                    print("ERROR: This player is already selected for the tournament.")
 
             # if user enters id of the user
             elif option.lower() == 'id':
                 chess_id = input("Enter Chess ID: ").strip()
                 player = search_by_id(chess_id)
                 if player:
-                    selected_tournament_players.append(player)
-                    print(f"Added {player.get('name')} to the tournament.")
+                    if player not in selected_tournament_players:
+                        selected_tournament_players.append(player)
+                        print(f"Added {player.get('name')} to the tournament.")
+                    else:
+                        print("ERROR: This player is already selected for the tournament.")
                 else:
                     print("No players match that Chess ID.")
 
@@ -192,8 +200,12 @@ class ActiveTournamentController:
                     selection = input("Select the player number to add: ")
                     # selects number of player from list of returned names that matched
                     if selection.isdigit() and 1 <= int(selection) <= len(matching_names):
-                        selected_tournament_players.append(matching_names[int(selection) - 1])
-                        print(f"Player {matching_names[int(selection) - 1].get('name')} added to the tournament.")
+                        selected_player = matching_names[int(selection) - 1]
+                        if selected_player not in selected_tournament_players:
+                            selected_tournament_players.append(selected_player)
+                            print(f"Player {matching_names[int(selection) - 1].get('name')} added to the tournament.")
+                        else:
+                            print("ERROR: This player is already selected for the tournament.")
                     else:
                         print("Invalid selection.")
                 else:
@@ -204,28 +216,31 @@ class ActiveTournamentController:
                 if len(selected_tournament_players) % 2 != 0:
                     print("ERROR: The number of selected players must be even. Please add another player.")
                 else:
-                    break
+                    # clear existing matches if generating with new players
+                    tournament.rounds = []
+                    # add the registered players to the empty list
+                    tournament.add_players(selected_tournament_players)
+                    # create initial pairings/matches randomly and print out the pairing results to the user
+                    print("Structure of tournament.registered_players:")
+                    print(tournament.registered_players)
 
+                    matches = Matches.pair_randomly(tournament)
+
+                    print("\nGenerated Round 1 Pairs: ")
+                    print("------------------------")
+                    for pair in matches:
+                        player1_id = pair["players"][0]
+                        player2_id = pair["players"][1]
+                        print(f"-- {player1_id} vs. {player2_id} --")
+
+                    # save the tournament object with all the new information
+                    tournament.save()
+                    print("First round matches have been set. Returning to Tournament Options screen...")
+
+                    break
             else:
                 # prints error message for any other user input
                 print("ERROR: Select the correct Player number or the correct 'keyword' to add players.")
-
-        # add the registered players to the empty list
-        tournament.add_players(selected_tournament_players)
-
-        # create initial pairings/matches randomly and print out the pairing results to the user
-        matches = Matches.pair_randomly(tournament)
-
-        print("\nGenerated Round 1 Pairs: ")
-        print("------------------------")
-        for pair in matches:
-            player1_id = pair["players"][0]
-            player2_id = pair["players"][1]
-            print(f"-- {player1_id} vs. {player2_id} --")
-
-        # save the tournament object with all the new information
-        tournament.save()
-        print("First round matches have been set. Returning to Tournament Options screen...")
 
     @staticmethod
     def enter_results(tournament):
