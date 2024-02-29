@@ -221,8 +221,8 @@ class ActiveTournamentController:
                     # add the registered players to the empty list
                     tournament.add_players(selected_tournament_players)
                     # create initial pairings/matches randomly and print out the pairing results to the user
-                    print("Structure of tournament.registered_players:")
-                    print(tournament.registered_players)
+                    # print("Structure of tournament.registered_players:")
+                    # print(tournament.registered_players)
 
                     matches = Matches.pair_randomly(tournament)
 
